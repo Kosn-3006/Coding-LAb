@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPage</title>
+    <style>
+        a{
+            text-decoration: none;
+            display: inline-block;
+        }
+        ul,
+        li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            max-width: 1170px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        body{
+            font-family: 'PT Serif', serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: #5e5e5e;
+        }
+        header{
+            font-family: 'Roboto', sans-serif;
+        }
+        .header__top{
+            background-color: #303030;
+        }
+        .header__btn{
+            float: right;
+            line-height: 36px;
+            color: #ffffff;
+            background-color: #ff2222;
+            padding: 5px 20px 4px 50px;
+            font-size: 16px;
+            display: block;
+            position: relative;
+        }
+        .header__btn:before{
+            color: white;
+            font-family: 'icomoon';
+            position: absolute;
+            left: 22px;
+        }
+        .header__contacts:after{
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        .header__content{
+            padding: 34px 0px 23px;
+        }
+        .header__content-inner{
+            display: flex;
+            justify-content: space-between;
+        }
+        .menu li{
+            display: inline-block;
+        }
+        .menu a{
+            color: #323232;
+            font-size: 16px;
+            line-height: 36px;
+            border: 1px solid transparent;
+            padding: 0px 16px;
+            transition: all .3s;
+        }
+        .menu a:hover{
+            border-color: #ff2222;
+        }
+        .menu li + li{
+            padding-left: 10px;
+        }
+        #modal{
+            display: none;
+        }
+
+        .default-btn{
+            display: inline-block;
+            font-size: 14px;
+            line-height: 24px;
+            color: #fff;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            padding: 8px 30px 8px 24px;
+            background-color: red;
+            color: white;
+            border-right-width: 20px;
+            position: relative;
+            z-index: 2;
+            outline: none;
+        }
+        .default-btn:after{
+            font-family: 'icomoon';
+            position: absolute;
+            background-color: red;
+            color: white;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -12px;
+        }
+
+        .services{
+            padding: 50px 0px 30px;
+            background-color: #5e5e5e;
+
+        }
+        .services__top{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+        .services__title-box,
+        .form__title-box{
+            max-width: 520px;
+            padding-left: 140px;
+            position: relative;
+        }
+        .services__title-box:before,
+        .form__title-box:before{
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background-color: #ff2222;
+            left: 0;
+            top: 11px;
+        }
+        .services__title,
+        .form__title{
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #212020;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 10px;
+        }
+        .services__text,
+        .form__text{
+            letter-spacing: 0.1px;
+
+        }
+        .services__text{
+            font-size: 15pt;
+            padding: 5px;
+        }
+        .services__btn a,
+        .news__btn a{
+            color: #373636;
+            line-height: 24px;
+            letter-spacing: 0.25px;
+            padding: 5px 38px;
+            border: 3px solid #e6e6e6;
+        }
+        .services__items{
+            display: flex;
+            justify-content: space-between;
+        }
+        .services__item{
+            max-width: 700px;
+            width: 80%  ;
+            text-align: center;
+            padding: 30px 0px 80px;
+            position: relative;
+            min-height: 200px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 7px 24.3px 2.7px rgba(91, 89, 89, 0.14);
+        }
+        .services__item-title{
+            color: #212020;
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            padding: 24px 0;
+        }
+        .services__item-text{
+            letter-spacing: 0.1px;
+            padding: 0px 30px 30px;
+
+        }
+        .services__item-btn{
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+        }
+        .services__item-btn .default-btn{
+            color: #373636;
+        }
+        .services__item-btn .default-btn:after{
+            color: #fff;
+        }
+        .services__item-link{
+            color: #050505;
+            font-family: 'Roboto', sans-serif;
+            border-bottom: 1px solid #050505;
+            margin-right: 60px;
+        }
+        about{
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+            background-repeat: no-repeat;
+            padding: 25px 0px 45px;
+        }
+        .about__inner{
+            max-width: 545px;
+        }
+        .about__title{
+            padding: 10px 0px 25px;
+            font-size: 24px;
+            line-height: 24px;
+            color: #fff;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+        }
+        .about__text{
+            background: #5e5e5e;
+            padding: 5px;
+            font-size: 14pt;
+            margin-bottom: 30px;
+            letter-spacing: 0.1px;
+            line-height: 24px;
+            color: #d3d2d2;
+        }
+        .about__btn.default-btn:after{
+            color: #000;
+        }
+        .form{
+            padding-top: 30px;
+        }
+
+        .form__box{
+            max-width: 850px;
+            padding-top: 45px;
+        }
+        .form__box-inner{
+            display: flex;
+            justify-content: space-between;
+        }
+        .form__box-left{
+            max-width: 260px;
+            width: 100%;
+        }
+        .form__box-right{
+            max-width: 555px;
+            width: 100%;
+        }
+        .form__box-inner label,
+        .form__box-inner input,
+        .form__box-inner textarea{
+            display: block;
+            width: 100%;
+        }
+        .form__box-inner label{
+            line-height: 36px;
+            color: #282828;
+            font-family: 'Roboto', sans-serif;
+        }
+        .form__box-inner input{
+            margin-bottom: 8px;
+            outline: none;
+            height: 40px;
+            border: 1px solid #e6e6e6;
+            padding: 0px 10px;
+        }
+        .form__box-inner select{
+            outline: none;
+            padding-left: 17px;
+        }
+
+        .form__box-inner .jq-selectbox li {
+            min-height: 18px;
+            padding: 5px 17px 6px;
+            color: #231F20;
+        }
+        .form__box-inner textarea{
+            outline: none;
+            border: 1px solid #e6e6e6;
+            padding: 10px;
+            height: 208px;
+            resize: none;
+            margin-bottom: 40px;
+        }
+        .form__box-inner button{
+            background-color: transparent;
+            color: #282828;
+            float: right;
+        }
+        .advantages{
+            padding: 55px 0px 40px;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 285px;
+            background-size: cover;
+        }
+        .advantages__inner{
+            color: #fff;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .advantages-item{
+            max-width: 360px;
+            padding: 0px 5px;
+        }
+        .advantages__title{
+            background-color: #5e5e5e;
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            padding: 60px 0px 15px;
+            position: relative;
+        }
+        .advantages__title:before{
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ff2222;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .advantages__title:after{
+            font-family: 'icomoon';
+            font-size: 14px;
+            position: absolute;
+            top: 9px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .advantages__text{
+            line-height: 24px;
+            color: #d3d2d2;
+            letter-spacing: 0.1px;
+        }
+
+
+        .footer__content{
+            background-color: #595959;
+            padding: 20px 0px 30px;
+        }
+        .footer__inner{
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer__inner .header__btn{
+            float: none;
+            display: inline-block;
+        }
+
+        .footer__map iframe{
+            width: 100%;
+        }
+        .footer__title{
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: #fff;
+            line-height: 36px;
+            letter-spacing: 0.5px;
+        }
+        .footer__text{
+            color: #d3d2d2;
+            margin-bottom: 20px;
+        }
+        .footer__info{
+            max-width: 360px;
+        }
+        .footer__list{
+            padding-top: 10px;
+        }
+        .footer__list li{
+            margin-top: 10px;
+        }
+        .footer__list a{
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.25px;
+            color: #fff;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            padding-left: 33px;
+            position: relative;
+        }
+        .footer__list a:before{
+            position: absolute;
+            left: 0;
+            color: #ff2222;
+            font-family: 'icomoon';
+        }
+        .footer__list .footer__phone:before{
+            left: 3px;
+        }
+        .footer__list .footer__adress:before{
+            left: 3px;
+        }
+        .footer__copy{
+            background-color: #303030;
+            text-align: center;
+            font-size: 12px;
+            line-height: 24px;
+            padding: 8px 0;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+        }
+        #modal{
+            width: 300px;
+        }
+        #modal input{
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            outline: none;
+            height: 40px;
+            border: 1px solid #e6e6e6;
+            padding: 0px 10px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+        }
+        #modal input[type="submit"]{
+            background-color: #ff2222;
+            border: none;
+        }
+        .header__btn-menu{
+            display: none;
+            font-size: 28px;}
+        .about{
+            background-image: url("picture/fin.jpg");
+        }
+        .advantages {
+        background-image: url("img/ss.jpg")}
+        .form__inner{
+            background-image: url("picture/form-fon.png");
+            padding-bottom: 30px;
+            min-height: 460px;
+            background-repeat: no-repeat;
+            background-position: bottom right;
+        }
+        @media (max-width: 1156px){
+            .services__items{
+                display: block;
+            }
+            .services__item{
+                max-width: 80%;
+                min-height: 330px;
+                margin: 30px auto;
+            }
+            .form__inner{
+                background-image: none;
+            }
+
+            .footer__info{
+                max-width: 465px;
+                margin-bottom: 25px;
+            }
+        }
+        @media (max-width: 1050px){
+            .footer__inner{
+                display: block;
+            }
+
+        }
+        @media (max-width: 900px){
+
+            .services__top{
+                display: block;
+            }
+            .services__title-box,
+            .form__title-box{
+                padding-left: 0;
+                text-align: center;
+                margin: 0 auto 30px;
+            }
+            .services__title-box:before,
+            .form__title-box:before{
+                display: none;
+            }
+
+            .form__box-inner{
+                display: block;
+            }
+            .form__box-left{
+                max-width: 100%;
+            }
+            .form__box-right{
+                max-width: 100%;
+            }
+            .form__box-inner{
+                margin-bottom: 10px;
+            }
+            .form{
+                padding-bottom: 25px;
+            }
+            .advantages__inner{
+                display: block;
+            }
+            .advantages-item{
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+        @media (max-width: 700px){
+            .header__btn{
+                float: none;
+            }
+            .header__contacts{
+                text-align: center;
+            }
+            .header__btn:before{
+                display: none;
+            }
+            .footer__info .header__btn:before{
+                display: block;
+            }
+            .header__btn-menu{
+                display: block;
+            }
+            .menu ul{
+                display: none;
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin-top: 20px;
+                z-index: 50;
+            }
+            .menu li{
+                display: block;
+                text-align: center;
+            }
+            .menu a{
+                display: block;
+                background-color: #ff2222;
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+            .menu li + li{
+                padding-left: 0;
+            }
+        }
+        @media (max-width: 600px){
+            .services__item{
+                max-width: 100%;
+                min-height: 375px;
+                margin: 30px auto;
+            }
+        }
+
+
+        @media (max-width: 400px){
+            .header__btn:before{
+                display: block;
+            }
+            .advantages-item{
+                padding: 0;
+            }
+        }
+        @media (max-width: 375px){
+            {
+                padding-right: 30px;
+            }
+        }
+
+
+        @media (min-width: 700px){
+            .menu ul{
+                display: block !important;
+            }
+        }
+        body{
+            margin: 0px;
+        }
+    </style>
+       </head>
+
+<body>
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="header__contacts">
+                <a class="header__btn" href="#">Rent a car</a>
+            </div>
+        </div>
+    </div>
+    <div class="header__content">
+        <div class="container">
+            <div class="header__content-inner">
+                <div class="header__logo">
+                    <a href="#">
+                        <img src="img/p.png" width="80" height="80" alt="">
+                    </a>
+                </div>
+                <nav class="menu">
+                    <div class="header__btn-menu">
+                        <span class="icon-bars"></span>
+                    </div>
+                    <ul>
+                        <li><a href="Login.php">Title page</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="services">
+    <div class="container">
+        <div class="services__top">
+            <div class="services__title-box">
+                <div class="services__title" style=" color: white;  background-color: red;">
+                    Our services
+                </div>
+                <div class="services__text"  style="  color: white;  background-color: red; font-size: 14pt">
+                    You can rent a car for personal purposes for any length of time. By concluding a contract for a long term (30 days or more), you will receive the maximum discount on the rental <rate class=""></rate>
+                </div>
+            </div>
+        </div>
+        <div class="services__items">
+            <div class="services__item">
+                <img src="picture/1.jpg" height="150" width="150" alt="">
+                <div class="services__item-title"> Car rent</div>
+                <div class="services__item-text">
+                    We offer car rental services without a driver. We are ready to provide a car for rent for any period - several hours, half a day, days, weeks and months                </div>
+                <div class="services__item-btn">
+                    <a class="services__item-link" href="#">MoreS</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="about">
+    <div class="container">
+        <div class="about__inner">
+            <div class="about__title">
+About us            </div>
+            <div class="about__text">
+                The company specializes in providing car rental services. Today, more than 5 thousand cars are rented every day. Our company provides these services.
+            </div>
+            <a href="#" class="about__btn default-btn">
+                Learn more
+            </a>
+        </div>
+    </div>
+</section>
+<br>
+
+<section class="advantages">
+    <div class="container">
+        <div class="advantages__inner">
+            <div class="advantages-item">
+                <div class="advantages__title">
+                    All modern and comfortable cars and bloodsuckers are equipped with seat belts, climate control, air conditioners, GPS control systems, and video recorders.
+                </div>
+
+            </div>
+            <div class="advantages-item">
+                <div class="advantages__title">
+                    Availability of all necessary licenses and related permits.Also reasonable prices that will astonish everyone. <b>Rent a day : 100$</b> .  </div>
+
+            </div>
+            <div class="advantages-item">
+                <div class="advantages__title">
+                    Our experts will process your application as quickly as possible, take into account all your wishes and help with the solution of all coordination and organizational issues.                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="footer__content">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__info">
+
+                    <a id="contact" href="javascript:;" class="header__btn" href="#">
+                        Contacts
+                    </a>
+                    <ul class="footer__list">
+                        <li><a class="footer__phone" href="tel:77024544455">+7 (702) 454 44 55</a></li>
+                        <li><a href="#">astanaitedu@gmail.com</a></li>
+                        <li><a class="footer__adress" href="#">Нур-Султан, ул.Туркестана, 10</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer__copy">
+        <div class="container">
+            <div class="copy__text">
+                © 2021 Template by Kossanov Dinmukhamed and Tulegenov Aidarkhan.
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+
+</html>
